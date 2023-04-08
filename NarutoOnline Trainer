@@ -1,0 +1,209 @@
+#BIBLIOTECAS
+from rich import print
+from time import sleep
+#BANCO DE DADOS NINJA ASSIST (NÃO MEXER, A MENOS QUE SEJA NECESSARIO)
+bandeiras = ['Tenten','Mei Terumi','Ao','Danzo Shimura','Fuu Yamanaka','Gaara','Temari','Ay','Mabui','Onoki','Akatsuchi','Hanazo Salamander','Hidan','Minato Namikaze','Rasa','Torune Aburame','Kotetsu Hagane','Shisui Uchiha','Ameyuri Ringo','Suigetsu','Jugo','Karin','Sasuke','Kisame Hoshikage','Tsunade','Orochimaru','Kimimaro','Ay [Terceiro Raikage]','Shizune','Yamato','Hiashi Hyuuga','Fuguki Suikazan','Killer Bee','Mu']
+bandeirasefe = ['Increase Critical Hit of a 20%','Grants [cyan]Water Atributte [white]ninja with Ninjutsu increase of 16% and a Resistance increase of 24%','Grants [cyan]Water Atributte [white]ninja with Attack increase of 16% and a Defense increase of 24%','Grants [red]Fire Atributte [white]ninja with Ninjutsu increase of 16% and a Resistance increase of 24%','Grants [red]Fire Atributte [white]ninja with Attack increase of 16% and a Defense increase of 24%','Grants [green]Wind Atributte [white]ninja with Ninjutsu increase of 16% and a Resistance increase of 24%','Grants [green]Wind Atributte [white]ninja with Attack increase of 16% and a Defense increase of 24%','Grants [blue]Lightning Atributte [white]ninja with Ninjutsu increase of 16% and a Resistance increase of 24%','Grants [blue]Lightning Atributte [white]ninja with Attack increase of 16% and a Defense increase of 24%','Grants [yellow]Earth Atributte [white]ninja with Ninjutsu increase of 16% and a Resistance increase of 24%','Grants [yellow]Earth Atributte [white]ninja with Attack increase of 16% and a Defense increase of 24%','Your teams ninja deal 24% increased damage to targets suffering from [purple]Poisoning [white]and [purple]Strong Poison','Your teams ninja deal 24% increased damage to targets suffering from [yellow]Tag','Your teams ninja deal 24% increased damage to targets suffering from [red]Ignition','Increases lineup ninjas [yellow]Speed [white]by 400 points','When any ninja in the lineup has a Shield, Their Defense and Resistance is increased by 16%','The teams Ninja deal 30% increased damage to ninja who are [cyan]Immune to Debbufs','Your teams Ninja deals 50% increased [cyan]Chase[white] damage','Your team Ninja gain 2.4 increase in [yellow]Speed[white] when attacked with Mystery Skills','The teams Ninja deal 24% increased damage to [blue]Paralyzed [white]targets','When ninjas in your lineup cause Low Float, increase their Attack and Ninjutsu by 4%','When ninjas in your lineup cause High Float, increase their Attack and Ninjutsu by 4%','When ninjas in your lineup cause Knockdown, increase their Attack and Ninjutsu by 4%','When ninjas in your lineup cause Repulse, increase their Attack and Ninjutsu by 4%','If your lineup Chakra is absorbed by opponent, keep at least 24 Chakra Minimum','Squads Healing Amounts increased by 32%','Increase squads damage to Konoha ninja by 30%','The first Chase damage received each round will be reduced by 16%','Ninjas in your lineup will have their Attack and Ninjutsu increased by 16% wheneaver they have a Shield.','For every Debuff a ninja in your lineup has, that until will have their Defense and Resistance increased by 16%','Increased Damage to tailed beast in 30%','The first Standart Attack damage received each round will be reduced by 16%','Hidden Mist ninjas in your lineup will have their Critical Rate increased by 10%','Whenever a Jinchuriki ninjas execute on-field passive skill, increase that ninja Attack by 6% and Ninjutsu by 5%','Ninjas in your lineup will have their Mystery Damage increased by 8% and will recover 16 Chakra wheneaver they use your mystery skills']
+atributos = [[42,57,71,82,94,110,123,135,150,162],[20,28,33,60,50,60,57,79,76,78],[18,23,33,38,53,58,52,57,66,73],[20,28,33,40,54,52,57,75,66,76],[18,22,31,39,40,57,133,57,66,70],[47,60,74,90,93,117,133,142,162,175],[48,60,74,90,102,117,133,192,162,175],[47,60,75,90,98,120,133,94,162,206],[48,60,74,104,117,178,142,145,162,175],[47,60,72,90,102,90,88,145,162,175]]
+pots = [3,8,10,15,20,30,50,88,170,200]
+#BANCO DE DADOS SECRET SCROLL (NÃO MEXER, A MENOS QUE SEJA NECESSARIO)
+listaperg = ['INNER FOCUS','INNER STRENGHT','NINJUTSU MASTER','FEROCITY','FIGHTER',
+'ARCANE MASTERY','BURST','STONESKIN','STABBING','NINJUTSU BURST','NINJUTSU SHIELD',
+'CONFUSION JUTSU','RECOVERY TECHNIQUE','FATAL STRIKE','LETHAL ATTACK','IMPALE CAPABILITY',
+'PHYSICAL CHARGE','DEFENSE ENHANCEMENT','RESISTANCE ENHANCEMENT','ABSOLUTE STEALTH','ONE-HIT SHATTER']
+listapergstatus = ['Life Recovery','Life','Nin Penetration','Critical Hit','Tai Penetration','Nin Penetration','Injury','Defense','Combo Rate','Ninjutsu','Resistance','Control','Life Recovery','Attack','Critical Hit','Nin Penetration','Tai Penetration','Defense','Resistance','Ninjutsu','Attack']
+scrollpage = [2,3,4,6,7,9,11,14,16,19,22,27,35,42,50,60,75,90]
+mantra = [4,5,7,9,14,18,22,27,32,38,44,51,62,77,95,115,138,175]
+ryos = 50.000
+cont2 = 0
+vida = [708, 0, 708, 1416, 1416,1556, 1556,0,1556,778,0,778,778,1556,778,778,778,1556,0,1556,1556]
+atk =  [342,1403,342, 719, 342,1166, 790,1542,376,1542,1542,752,1166,1166,752,1166,752,1166,1542,1166,342]
+defe = [316,632,632, 632, 316, 0, 694,694,347,0,347,694,694,0,694,694,347,694,347,347,694]
+nin = [364,728,364, 728, 364,800, 400,800,400,800,800,0,800,800,0,800,400,400,800,400,400]
+resis = [354,354,708, 0, 354, 778, 389,389,389,778,778,778,0,778,778,0,778,389,778,389,354]
+crit = [806,806,806, 1612, 806, 886, 1772,886,886,886,0,886,1772,886,886,1772,886,1772,886,886,1772]
+dcrit = [761,761,1522, 761, 761, 837,1672,886,1674,837,1674,1672,837,837,1674,837,837,837,837,1674,837]
+combo = [0,786,786, 786, 786,864, 864,864,1728,864,864,1728,864,864,1728,864,1728,864,864,1728,864]
+control = [716,719,719, 719, 719, 70, 0,790,790,790,790,0,790,790,0,790,790,0,790,0,790]
+count = 1
+#MENU DO TRAINER
+print ('[yellow]{:^30}'.format ('VER 1.0 POR GATO DA SORTE'))
+print ('==='*10)
+while True:
+    sleep (1)
+    print ('{:^30}'.format ('NARUTO ONLINE TRAINER'))
+    print ('==='*10)
+    print ('''[1] SECRET SCROLL
+[2] NINJA ASSIST
+[3] SAIR''')
+    print ('==='*10)
+    resp = int (input ('Digite sua escolha: '))
+    print ('==='*10)
+    if resp == 3:
+        break
+    elif resp == 2:
+#MENU INICIAL NINJA ASSIST
+        while True:
+            sleep (1)
+            print ('{:^30}'.format ('NINJA ASSIST'))
+            print ('==='*10)
+            print ('''[1] BANDEIRAS
+[2] GASTO
+[3] VOLTAR''')
+            print ('==='*10)
+            resp = int (input ('Digite sua escolha: '))
+            print ('==='*10)
+            if resp == 3:
+                break
+#BANDEIRAS
+            elif resp == 1:
+                while True:
+                    sleep (1)
+                    print ('{:^30}'.format ('BANDEIRAS'))
+                    print ('==='*10)
+                    for c in bandeiras:
+                        print ('[{}] {}'.format (count,c))
+                        count += 1
+                    print ('[{}] Voltar'.format ('999'))
+                    print ('==='*10)
+                    resp = int (input ('Digite sua Escolha: '))
+                    print ('==='*10)
+                    if resp == 999:
+                        count = 1
+                        break
+                    elif resp in range (1,35):
+                        print (f'[cyan]{bandeiras[resp-1]:^30}')
+                        print ('==='*10)
+                        print (f'{bandeirasefe[resp-1]}')
+                        print ('==='*10)
+                        count = 1
+                        while True:
+                            print ('NIVEL {}'.format (count))
+                            print ('==='*10)
+                            sleep (1)
+                            count += 1
+                            print (f'Health = {atributos[0][count-1]} / ',end='')
+                            print (f'Attack = {atributos[1][count-1]} / ' ,end='')
+                            print (f'Defense = {atributos[2][count-1]}  ')
+                            print (f'Ninjutsu = {atributos[3][count-1]} / ',end='')
+                            print (f'Resistance = {atributos[4][count-1]} / ',end='')
+                            print (f'Iniative = {atributos[5][count-1]} ')
+                            print (f'Critical Hit = {atributos[6][count-1]} / ',end='')
+                            print (f'Injury = {atributos[7][count-1]} / ',end='')
+                            print (f'Combo = {atributos[8][count-1]} ')
+                            print (f'Control = {atributos[9][count-1]} ')
+                            print ('==='*10)
+                            if count == 10:
+                                break
+                        sleep (5)  
+                        count = 1
+                        break
+                    elif resp not in range (1,35):
+                        print ('[red]Opção Invalida')
+                        print ('==='*10)
+                        count = 1
+#GASTO NINJA ASSIST
+            elif resp == 2:
+                sleep (1)
+                print ('{:^30}'.format ('TABELA DE GASTO'))
+                print ('==='*10)
+                while True:
+                    print (f'NIVEL {count}')
+                    print ('==='*10)
+                    if count < 7:
+                        print (f'Gasto Individual de Poções de Treino = {pots[count-1]} // Gasto Total de Poções de treino = {pots[count-1]*10}')
+                        print ('==='*10)
+                    elif count == 7:
+                        print (f'Gasto Individual de Poções de Treino = {pots[count-1]} // Gasto Total de Poções de treino = {pots[count-1]*11}')
+                        print ('==='*10)
+                    elif count == 8:
+                        print (f'Gasto Individual de Poções de Treino = {pots[count-1]} // Gasto Total de Poções de treino = {pots[count-1]*12}')
+                        print ('==='*10)
+                    elif count == 9:
+                        print (f'Gasto Individual de Poções de Treino = {pots[count-1]} // Gasto Total de Poções de treino = {pots[count-1]*13}')
+                        print ('==='*10)
+                    elif count == 10:
+                        print (f'Gasto Individual de Poções de Treino = {pots[count-1]} // Gasto Total de Poções de treino = {pots[count-1]*13}')
+                        print ('==='*10)
+                        break
+                    count += 1
+    elif resp == 1:
+        #MENU INICIAL SECRET SCROLL
+        while True:
+            sleep (1)
+            print ('{:^30}'.format('SECRET SCROLL'))
+            print ('==='*10)
+            print ('''[1] PERGAMINHOS
+[2] GASTO
+[3] VOLTAR''')
+            print ('==='*10)
+            resp = int (input ('Digite Sua Escolha: '))
+            print ('==='*10)
+        #PERGAMINHOS
+            if resp == 1:
+                while True:
+                    sleep (1)
+                    print ('{:^30}'.format('LISTA DE PERGAMINHOS'))
+                    print ('==='*10)
+                    for c in listaperg:
+                        print (f'[{count}] {c:>5}')
+                        count += 1
+                    print ('==='*10)
+                    resp = int (input ('Digite sua Escolha: '))
+                    print ('==='*10)
+                    if resp in range (1,220):
+                        print (f'[cyan]{listaperg[resp-1]}[white] = [green]Iniative + {listapergstatus[resp-1]}')
+                        print (f'Health = {vida[resp-1]} / ',end='')
+                        print (f'Attack = {atk[resp-1]} / ' ,end='')
+                        print (f'Defense = {defe[resp-1]}  ')
+                        print (f'Ninjutsu = {nin[resp-1]} / ',end='')
+                        print (f'Resistance = {resis[resp-1]} / ',end='')
+                        print (f'Critical Hit = {crit[resp-1]} ')
+                        print (f'Injury = {dcrit[resp-1]} / ',end='')
+                        print (f'Combo = {combo[resp-1]} / ',end='')
+                        print (f'Control = {control[resp-1]} ')
+                        print ('==='*10)
+                        break
+                    else:
+                        print ('[red] Opção Invalida')
+        #CALCULADOR DE PERGAMINHOS
+            elif resp == 2:
+                while True:
+                    sleep (1)
+                    cont2 = 0
+                    count = 0
+                    print ('{:^30}'.format ('TABELA DE GASTOS'))
+                    print ('==='*10)
+                    print ('''[1] PERGAMINHO COM 4 FRAGS
+        [2] PERGAMINHO COM 5 FRAGS
+        [3] PERGAMINHO COM 6 FRAGS
+        [4] VOLTAR''')
+                    print ('==='*10)
+                    resp = int (input ('Digite sua Escolha: '))
+                    print ('==='*10)
+                    if resp == 1 or resp == 2 or resp == 3:
+                        print ('{:^30}'.format ('CALCULADOR'))
+                        print ('==='*10)
+                        for count in range(2,20):
+                            print ('{} {}: '.format ('NIVEL',(count)),end=' ')
+                            if resp == 1:
+                                print ('[white]Scroll Page [white]= [/]{} / '.format (scrollpage[cont2]*5),end='')
+                                print ('[cyan]Mantra Elixir [white]= {} / '.format (mantra[cont2]),end='')
+                                print ('[yellow]Ryos [white]= {:.3f}'.format (ryos*4))
+                            elif resp == 2:
+                                print ('[white]Scroll Page [white]= {} / '.format (scrollpage[cont2]*6),end='')
+                                print ('[cyan]Mantra Elixir [white]= {} / '.format (mantra[cont2]),end='')
+                                print ('[yellow]Ryos [white]= {:.3f}'.format (ryos*5))
+                            elif resp == 3:
+                                print ('[white]Scroll Page [white]= {} / '.format (scrollpage[cont2]*7),end='')
+                                print ('[cyan]Mantra Elixir [white]= {} / '.format (mantra[cont2]),end='')
+                                print ('[yellow]Ryos [white]= {:.3f}'.format (ryos*6))
+                            if count != 19:
+                                print ('---'*23)
+                            cont2 += 1
+                    elif resp == 4:
+                        break
+                    print ('==='*10)
+            elif resp == 3:
+                break
+            count = 1
